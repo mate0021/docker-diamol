@@ -1,0 +1,4 @@
+
+docker container cp someFile.txt /diamol diamol/ch03-lab
+docker container cp someFile.txt <image_name>:/diamol
+docker container commit --author mate00 --message "Lab 03 solution" <image_name>
