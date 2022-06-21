@@ -1,0 +1,14 @@
+
+Initial build:
+
+docker image build --tab ch04:initial .
+
+REPOSITORY                     TAG       IMAGE ID       CREATED          SIZE
+ch04                           initial   70f840721548   26 seconds ago   832MB
+
+
+We run container and expose the port:
+
+docker container run -p 80:80 ch04:initial
+
+
