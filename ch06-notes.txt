@@ -8,8 +8,8 @@ docker container inspect todo1
 Volume commands:
 docker volume ls
 docker volume inspect <full sha>
-docker volume prune (remove all unused volumes. Unused means - no container exists that used that volume. Not only not running, but deleted)
-
+docker volume prune (remove all unused volumes. Unused means -> no container exists that used that volume. Not only not running, but deleted)
+docker volume inspect $(docker volume ls -q) (inspect all volumes at once)
 
 
 So, at first we delete all existing unused volumes:
