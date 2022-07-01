@@ -1,7 +1,7 @@
 
 Initial build:
 
-docker image build --tab ch04:initial .
+docker image build --tag ch04:initial .
 
 REPOSITORY                     TAG       IMAGE ID       CREATED          SIZE
 ch04                           initial   70f840721548   26 seconds ago   832MB
@@ -11,4 +11,41 @@ We run container and expose the port:
 
 docker container run -p 80:80 ch04:initial
 
+
+Key thing here is to use multistage build, one with GO lang SDK as builder, 
+and when it builds the binary, use base image and copy the binary to it.
+
+
+-------
+# using golang SDK build an application binary
+FROM diamol/golang AS builder
+
+COPY main.go .
+RUN go build -o /web/server
+RUN chmod +x /web/server
+
+
+# we need only base image now, without whole golang SDK
+FROM diamol/base
+
+WORKDIR web
+
+COPY --from=builder /web/server .
+
+CMD ["/web/server"]
+
+ENV USER=sixeyed
+EXPOSE 80
+
+COPY index.html .
+------
+
+
+docker image build --tag ch04:sln --file Dockerfile-sln .
+
+REPOSITORY                     TAG       IMAGE ID       CREATED         SIZE
+ch04                           sln       9ccafb8da9ae   5 minutes ago   17MB
+
+
+docker container run -p 80:80 ch04:sln
 
