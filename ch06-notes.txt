@@ -1,0 +1,39 @@
+docker container run --name todo1 -d diamol/ch06-todo-list
+
+It runs a container that has VOLUME defined in Dockerfile.
+
+docker container inspect todo1
+
+
+Volume commands:
+docker volume ls
+docker volume inspect <full sha>
+docker volume prune (remove all unused volumes. Unused means - no container exists that used that volume. Not only not running, but deleted)
+
+
+
+So, at first we delete all existing unused volumes:
+
+$ docker volume prune
+
+We run first todo container.
+
+We run second container of the same image, giving a different name:
+
+docker container run --name todo2 -d diamol/ch06-todo-list
+
+There are two volumes mounted now:
+
+docker volume ls
+DRIVER    VOLUME NAME
+local     5da4ed623919eb61f7628fe2b0e102d435be62ba1d11b37c3ff4d7dcb31772ce
+local     fb4c01ce85ea33fa564caa4d15f8ccc3295203b27d400209037ad58287746a4d
+
+$ docker container exec todo1 ls /data
+todo-list.db
+
+$ docker container exec todo2 ls /data
+(empty result)
+
+docker container run -d --name todo3 -d --volumes-from todo1 diamol/ch06-todo-list
+
