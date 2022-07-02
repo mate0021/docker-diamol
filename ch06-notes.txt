@@ -37,3 +37,10 @@ $ docker container exec todo2 ls /data
 
 docker container run -d --name todo3 -d --volumes-from todo1 diamol/ch06-todo-list
 
+There are still 2 volumes.
+
+
+We create volumes:
+$ docker volume create vol-todo-list
+$ docker container run -d --name todo4 -d --volume vol-todo-list:/data diamol/ch06-todo-list  (<- has to be /data; has to match with VOLUME, because application writes to $SQL_DATA_DIRECTORY)
+
