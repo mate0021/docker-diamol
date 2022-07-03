@@ -44,3 +44,6 @@ We create volumes:
 $ docker volume create vol-todo-list
 $ docker container run -d --name todo4 -d --volume vol-todo-list:/data diamol/ch06-todo-list  (<- has to be /data; has to match with VOLUME, because application writes to $SQL_DATA_DIRECTORY)
 
+
+Mounting a volume
+docker container run XXX --mount type=bind,source=<absolute/path>,target=/app/data <image_name>
