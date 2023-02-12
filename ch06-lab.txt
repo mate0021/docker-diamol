@@ -1,0 +1,5 @@
+First attempt:
+
+$ docker container run --name todolist-lab -d -p 8011:80 --mount type=bind,source=$(pwd)/todo-list.db,target=/init-data/todo-list.db diamol/ch06-lab
+
+
